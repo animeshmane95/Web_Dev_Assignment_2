@@ -14,12 +14,24 @@ class CourseService {
       this[_singleton] = new CourseService(_singleton);
     return this[_singleton]
   }
+  
+
   findAllCourses() {
     return fetch(COURSE_API_URL)
       .then(function(response){
         return response.json();
       });
   }
+
+  deleteCourses(courseid){
+
+    return fetch(COURSE_API_URL + '/' +courseid , {
+      method: 'Delete'
+    })
+  }
+
+
+
   createCourse(course) {
     return fetch(COURSE_API_URL, {
       body: JSON.stringify(course),

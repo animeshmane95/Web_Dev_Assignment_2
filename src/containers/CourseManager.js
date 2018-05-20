@@ -8,7 +8,10 @@ export default class CourseManager
     return (
       <Router>
         <div className="container-fluid">
-          <h1>Course Manager</h1>
+        <br/>
+          <div style={{backgroundColor: 'steelblue'}}>
+          <h1 align = "center" Text style={{color: 'white'}}><i>Course Manager</i></h1>
+          </div>
           <CourseList/>
 
           <Route path="/courses"

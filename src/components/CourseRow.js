@@ -13,10 +13,12 @@ class CourseRow extends React.Component {
           {this.props.course.title}
         </Link>
         <span className="float-right">
-        <i className="fa fa-trash"></i>
+        <i className="fa fa-trash" onClick = {()=> {this.props.delete(this.props.course.id)}}></i>
         </span>
        </li>
-      </td></tr>
+      </td>
+      <td></td>
+      </tr>
     )
   }
 }
