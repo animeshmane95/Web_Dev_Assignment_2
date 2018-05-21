@@ -23,6 +23,12 @@ class CourseService {
       });
   }
 
+  findCourseById(courseid){
+    return fetch(COURSE_API_URL + '/' + courseid)
+    .then(function (response) {return response.json();});
+
+  }
+
   deleteCourses(courseid){
 
     return fetch(COURSE_API_URL + '/' +courseid , {
