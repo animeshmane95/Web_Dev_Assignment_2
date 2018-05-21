@@ -14,6 +14,12 @@ export default class ModuleService {
       })
   }
 
+  deleteModule(moduleID){
+      return fetch(MODULE_API_URL1 + '/' +moduleID , {
+      method: 'Delete'
+    })
+  }
+
 
 
   findAllModulesForCourse(courseId) {

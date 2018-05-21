@@ -12,7 +12,7 @@ export default class ModuleListItem
         {this.props.module.title}
       </Link>
         <span className="float-right">
-          <i className="fa fa-trash"></i>
+          <i className="fa fa-trash" onClick = {()=> {this.props.deleteMod(this.props.module.id)}}></i>
           <i className="fa fa-pencil"></i>
         </span>
       </li>
