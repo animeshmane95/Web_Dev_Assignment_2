@@ -67,15 +67,25 @@ export default class ModuleList extends Component {
   render() {
     return (
       <div>
-        <h4><i>Module List for course: {this.state.courseId}</i></h4>
+        <h3 align = "center"><i>Module List for course: {this.state.courseId}</i></h3>
+        <table className = "table">
+        <tbody>
+        <tr>
+        <td>
         <input onChange={this.titleChanged}
                value={this.state.module.title}
-               placeholder="title"
-               className="form-control"/>
+               placeholder="Add Modules Here"
+               className="form-control">
+        </input>
+        </td>
+        <td>
         <button onClick={this.createModule} className="btn btn-primary btn-block">
           <i className="fa fa-plus"></i>
         </button>
-        <br/>
+        </td>
+        </tr>
+        </tbody>
+        </table>
         <ul className="list-group">
           {this.renderListOfModules()}
         </ul>

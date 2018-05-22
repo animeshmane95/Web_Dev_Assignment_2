@@ -8,7 +8,7 @@ export default class ModuleListItem
   render() {
     return (
       <li className="list-group-item">
-      <Link to={`/module/${this.props.module.id}`}>
+      <Link to={`/course/module/${this.props.module.id}`}>
         {this.props.module.title}
       </Link>
         <span className="float-right">
