@@ -11,6 +11,10 @@ export default class TopicCard
   						{this.props.topic.title}</i></h5>
   						<br/>
   						<p><i> The topic for lesson</i></p>
+  						<button className = "btn btn-danger"
+    					onClick = {()=> {this.props.deleteTop(this.props.topic.id)}}>
+            				 DELETE Topic
+          				</button>
   					</div>
   				</div>
   				</div>

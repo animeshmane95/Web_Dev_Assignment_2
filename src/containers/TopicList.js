@@ -14,11 +14,18 @@ export default class TopicList extends Component {
     this.createTopic = this.createTopic.bind(this);
     this.titleChanged = this.titleChanged.bind(this);
     this.setLessonId =  this.setLessonId.bind(this);
+    this.deleteTopic = this.deleteTopic.bind(this);
     this.topicService = TopicService.instance;
   }
+
   setTopics(topics) {
     this.setState({topics: topics})
   } 
+
+   deleteTopic(topicId){
+    this.topicService.deleteTopic(topicId)
+    .then(() => { this.findAllTopicsForLesson(this.state.lessonId);});
+  }
 
   findAllTopicsForLesson(lessonId) {
     this.topicService
@@ -54,7 +61,7 @@ export default class TopicList extends Component {
 
   renderListOfTopics() {
     var topics = this.state.topics.map((topic) => {
-     return (<TopicCard key={topic.id} topic={topic}/>)
+     return (<TopicCard deleteTop={this.deleteTopic} key={topic.id} topic={topic}/>)
     });
     return topics;
   }
