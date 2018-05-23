@@ -13,12 +13,19 @@ export default class LessonList extends Component {
     this.createLesson = this.createLesson.bind(this);
     this.titleChanged = this.titleChanged.bind(this);
     this.setModuleId =  this.setModuleId.bind(this);
+    this.deleteLesson = this.deleteLesson.bind(this);
 
     this.lessonService = LessonService.instance;
   }
   setLessons(lessons) {
     this.setState({lessons: lessons})
   }
+
+  deleteLesson(lessonId){
+    this.lessonService.deleteLesson(lessonId)
+    .then(() => { this.findAllLessonsForModule(this.state.moduleId);});
+  }
+ 
 
   findAllLessonsForModule(moduleId) {
     this.lessonService
@@ -31,6 +38,7 @@ export default class LessonList extends Component {
   }
   componentDidMount() {
     this.setModuleId(this.props.match.params.moduleId);
+    this.findAllLessonsForModule(this.props.match.params.moduleId);
   }
 
 
@@ -51,10 +59,8 @@ export default class LessonList extends Component {
   }
 
   renderListOfLessons() {
-    
     var lessons = this.state.lessons.map((lesson) => {
-     return (<LessonCard deleteLes={this.deleteLesson}
-      key={lesson.id} lesson={lesson}/>)
+     return (<LessonCard deleteLes={this.deleteLesson} key={lesson.id} lesson={lesson}/>)
     });
     return lessons;
   }

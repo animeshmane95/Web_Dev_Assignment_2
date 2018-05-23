@@ -44,7 +44,7 @@ export default class ModuleList extends Component {
   }
 
   deleteModule(moduleId){
-    this.moduleService.deleteModule(moduleId).then(() => { this.findAllModulesForCourse(this.props.courseId); });
+    this.moduleService.deleteModule(moduleId).then(() => { this.findAllModulesForCourse(this.state.courseId); });
   }
   
 

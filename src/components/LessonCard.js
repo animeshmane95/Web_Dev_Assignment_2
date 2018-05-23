@@ -1,5 +1,6 @@
 import React from 'react'
 import './Style.css'
+import { Link } from 'react-router-dom'
 
 export default class LessonCard
   extends React.Component
@@ -9,17 +10,18 @@ export default class LessonCard
   <div className="card"
        styles={{width: '18rem' , margin:'10px 10px 0px 10px'}}>
     <div className="card-body">
-      <h5 className="card-title">
-        {this.props.lesson.title}
+      <h5 className="card-title"><i>
+        {this.props.lesson.title}</i>
         </h5>
-       <button className="btn btn-danger"
-       onClick = {()=> {this.deleteLes(this.props.lesson.id)}}>
-       Delete Lesson </button>
+         <button className = "btn btn-danger"
+         onClick = {()=> {this.props.deleteLes(this.props.lesson.id)}}>
+             DELETE
+          </button>
        <br/>
        <br/>
-      <a href="#" className="btn btn-primary">
-        Topics of the Lesson
-      </a>
+      <Link to={`/lesson/${this.props.lesson.id}`}>
+          Topics for {this.props.lesson.title}
+        </Link>
     </div></div>
     </div>
     )

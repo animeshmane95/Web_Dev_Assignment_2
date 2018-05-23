@@ -3,6 +3,7 @@ import CourseList from "./CourseList"
 import CourseEditor from "./CourseEditor"
 import ModuleEditor from "./ModuleEditor"
 import LessonList from "./LessonList"
+import TopicList from "./TopicList"
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 export default class CourseManager
@@ -28,6 +29,9 @@ export default class CourseManager
           component={LessonList}>
           </Route>
 
+          <Route path= "/lesson/:lessonId"
+          component = {TopicList} >
+          </Route>
         </div>
       </Router>
     )

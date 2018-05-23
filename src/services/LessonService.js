@@ -1,4 +1,5 @@
 const LESSON_API_URL ='http://localhost:8080/api/course/CID/module/MID/lesson';
+const LESSON_API_URL1 = 'http://localhost:8080/api/delete/lesson?lessonId='
 let _singleton = Symbol();
 export default class LessonService {
   constructor(singletonToken) {
@@ -17,14 +18,13 @@ export default class LessonService {
   }
 
   deleteLesson(lessonID){
-      return fetch(LESSON_API_URL + '/' +lessonID , {
+      return fetch(LESSON_API_URL1 + lessonID , {
       method: 'Delete'
     })
   }
 
   createLesson(moduleId, lesson) {
 
-    alert("inside service"+moduleId)
     console.log(lesson)
     return fetch(LESSON_API_URL.replace('MID', moduleId),
       {
