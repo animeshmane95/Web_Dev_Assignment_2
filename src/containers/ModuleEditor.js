@@ -10,7 +10,16 @@ export default class ModuleEditor
     this.selectModule = this.selectModule.bind(this);
   }
 
+   componentWillMount(){
+    alert("WILL MOUNT" + this.props.match.params.moduleId)
+    this.selectModule
+    (this.props.match.params.moduleId);
+
+   }
+
    componentDidMount() {
+    alert("DID MOUNT" + this.props.match.params.moduleId)
+
     this.selectModule
     (this.props.match.params.moduleId);
   }

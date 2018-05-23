@@ -10,8 +10,11 @@ export default class LessonCard
        styles={{width: '18rem' , margin:'10px 10px 0px 10px'}}>
     <div className="card-body">
       <h5 className="card-title">
-        Card title</h5>
-       <button className="btn btn-danger">Delete Lesson </button>
+        {this.props.lesson.title}
+        </h5>
+       <button className="btn btn-danger"
+       onClick = {()=> {this.deleteLes(this.props.lesson.id)}}>
+       Delete Lesson </button>
        <br/>
        <br/>
       <a href="#" className="btn btn-primary">

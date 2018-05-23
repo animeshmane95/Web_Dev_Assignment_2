@@ -3,66 +3,95 @@ import LessonService from "../services/LessonService"
 import LessonCard from '../components/LessonCard'
 
 export default class LessonList extends Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       moduleId: '',
       lesson: { title: '' },
       lessons: []
     };
+    this.createLesson = this.createLesson.bind(this);
+    this.titleChanged = this.titleChanged.bind(this);
     this.setModuleId =  this.setModuleId.bind(this);
-	this.lessonService = LessonService.instance;
-}
 
- componentDidMount() {
-    this.setModuleId(this.props.moduleId);
+    this.lessonService = LessonService.instance;
   }
-
-   componentWillReceiveProps(newProps){
-    this.setModuleId(newProps.moduleId);
-  }
-
- setLessons(lessons) {
+  setLessons(lessons) {
     this.setState({lessons: lessons})
   }
 
-setModuleId(moduleId) {
-    this.setState({moduleId: moduleId});
+  findAllLessonsForModule(moduleId) {
+    this.lessonService
+      .findAllLessonsForModule(moduleId)
+      .then((lessons) => {this.setLessons(lessons)});
   }
 
-renderListOfLessons() {
-	let lessons = null;
-	console.log("render lesson card")
-    console.log(this.state)
-    lessons = this.state.lessons.map((lesson) => {
-     return (<LessonCard key={lesson.id} lesson={lesson}/>)
+  setModuleId(moduleId) {
+    this.setState({moduleId: moduleId});
+  }
+  componentDidMount() {
+    this.setModuleId(this.props.match.params.moduleId);
+  }
+
+
+  componentWillReceiveProps(newProps){
+    this.setModuleId(newProps.match.params.moduleId);
+    this.findAllLessonsForModule(newProps.match.params.moduleId);
+  }
+
+  createLesson() { 
+    this.lessonService
+      .createLesson(this.state.moduleId, this.state.lesson)
+      .then(() => { this.findAllLessonsForModule(this.state.moduleId); });
+  }
+
+  titleChanged(event) {
+    console.log(event.target.value);
+    this.setState({lesson: {title: event.target.value}});
+  }
+
+  renderListOfLessons() {
+    
+    var lessons = this.state.lessons.map((lesson) => {
+     return (<LessonCard deleteLes={this.deleteLesson}
+      key={lesson.id} lesson={lesson}/>)
     });
     return lessons;
   }
 
-  render() { return(
-  	<div>
-  	<table className = "table">
-  	<tbody>
-  	<tr>
-  	<td>
-  	<input className="form-control" id="titleFld" placeholder="Add Lessons Here" >
-  	</input>
-  	</td>
-  	<td>
-    <button className="btn btn-primary btn-block"> 
-    <i className="fa fa-plus"></i>
-    </button>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    <div className = "card-deck">
-    {this.renderListOfLessons()}
-     </div>
-    </div>
-  );}
+  render()
+  {
 
+    return(
+        <div>
+            <h3 align = "center"> <i> This is lesson list for {this.state.moduleId} </i></h3>
+            <br/>
+            <table className = "table">
+              <tbody>
+                  <tr>
+                    <td>
+                      <input onChange={this.titleChanged}
+                            value={this.state.lesson.title}
+                            placeholder="Lesson Name"
+                            className="form-control">
+                      </input>
+                      </td>
+                      <td>
+                        <button onClick={this.createLesson} 
+                                className = "btn btn-primary btn-block">
+                          Add
+                        </button>
+                      </td>
+                  </tr>
+              </tbody>
+            </table>
+            <div className = "card-deck"> 
+                {this.renderListOfLessons()}
+            </div>
+        </div>
 
+      )
+
+  }
 
 }
