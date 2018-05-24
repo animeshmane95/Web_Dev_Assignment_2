@@ -55,7 +55,7 @@ class CourseList extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div class = "courseList">
         <h2>List of Courses</h2>
         <table className="table">
             <tbody>
