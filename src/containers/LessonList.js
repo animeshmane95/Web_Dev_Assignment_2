@@ -17,6 +17,8 @@ export default class LessonList extends Component {
 
     this.lessonService = LessonService.instance;
   }
+
+
   setLessons(lessons) {
     this.setState({lessons: lessons})
   }
