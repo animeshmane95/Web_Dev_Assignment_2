@@ -1,5 +1,5 @@
 import React from 'react';
-import CourseRow from "../components/CourseRow";
+import CourseCard from "../components/CourseCard";
 import CourseService from "../services/CourseServices";
 
 class CourseList extends React.Component {
@@ -35,7 +35,7 @@ class CourseList extends React.Component {
     if(this.state) {
       courses = this.state.courses.map(
          (course) => {
-          return (<CourseRow delete={this.deleteCourse} key={course.id} course={course}/>)
+          return (<CourseCard delete={this.deleteCourse} key={course.id} course={course}/>)
         }
       )
     }
@@ -56,24 +56,22 @@ class CourseList extends React.Component {
   render() {
     return (
       <div>
-        <h2>Course List</h2>
+        <h2>List of Courses</h2>
         <table className="table">
-          <thead>
-            <tr><th>Title</th>
-            <th></th></tr>
+            <tbody>
             <tr>
-              <th><input onChange={this.titleChanged}
+              <td><input onChange={this.titleChanged}
                          className="form-control" id="titleFld"
-                         placeholder="cs101"/></th>
-              <th><button onClick={this.createCourse}
+                         placeholder="cs101"/></td>
+              <td><button onClick={this.createCourse}
                           className="btn btn-primary">
-                Add</button></th>
+                Add</button></td>
             </tr>
-          </thead>
-          <tbody>
-            {this.renderCourseRows()}
           </tbody>
-        </table>
+          </table>
+          <div className = "card-deck">
+          {this.renderCourseRows()}
+          </div>
       </div>
     )
   }

@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom'
 class CourseRow extends React.Component {
   constructor(props) {
     super(props)
-  }
+
+     var time = String (this.props.course.created);
+     var date = time.substring(0,10);
+  this.state = {date:date};
+
+  }                
+
   render() {
     return (
+      <div>
       <tr><td>
       <li className = "list-group-item">
         <Link to={`/course/${this.props.course.id}`}>
@@ -17,8 +24,11 @@ class CourseRow extends React.Component {
         </span>
        </li>
       </td>
-      <td></td>
+      <td> 
+      {this.state.date}
+      </td>
       </tr>
+      </div>
     )
   }
 }
