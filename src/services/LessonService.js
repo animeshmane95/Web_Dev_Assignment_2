@@ -1,5 +1,5 @@
-const LESSON_API_URL ='https://webdev-summer1-2018-animesh.herokuapp.com/api/course/CID/module/MID/lesson';
-const LESSON_API_URL1 = 'https://webdev-summer1-2018-animesh.herokuapp.com/api/delete/lesson?lessonId='
+const LESSON_API_URL ='http://localhost:8080/api/course/CID/module/MID/lesson';
+const LESSON_API_URL1 = 'http://localhost:8080/api/delete/lesson?lessonId='
 let _singleton = Symbol();
 export default class LessonService {
   constructor(singletonToken) {

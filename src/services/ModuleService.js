@@ -1,5 +1,5 @@
-const MODULE_API_URL ='https://webdev-summer1-2018-animesh.herokuapp.com/api/course/CID/module';
-const MODULE_API_URL1 = 'https://webdev-summer1-2018-animesh.herokuapp.com/api/module'
+const MODULE_API_URL ='http://localhost:8080/api/course/CID/module';
+const MODULE_API_URL1 = 'http://localhost:8080/api/module'
 let _singleton = Symbol();
 export default class ModuleService {
   constructor(singletonToken) {

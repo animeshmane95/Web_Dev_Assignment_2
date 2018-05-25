@@ -10,6 +10,7 @@ class CourseList extends React.Component {
     this.deleteCourse = this.deleteCourse.bind(this);
     this.createCourse = this.createCourse.bind(this);
     this.state = {courses : []};
+    
   }
 
   deleteCourse(courseId){
@@ -66,6 +67,7 @@ class CourseList extends React.Component {
               <td><button onClick={this.createCourse}
                           className="btn btn-primary">
                 Add</button></td>
+              <td></td>
             </tr>
           </tbody>
           </table>
