@@ -5,6 +5,7 @@ import ModuleEditor from "./ModuleEditor"
 import LessonList from "./LessonList"
 import TopicList from "./TopicList"
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import WidgetListContainer from './widgetListContainers'
 
 export default class CourseManager
   extends Component {
@@ -25,13 +26,18 @@ export default class CourseManager
                  component={CourseEditor}>
           </Route>
 
-          <Route path="/course/module/:moduleId"
+          <Route path="/course/:courseId/module/:moduleId"
           component={LessonList}>
           </Route>
 
           <Route path= "/lesson/:lessonId"
           component = {TopicList} >
           </Route>
+
+           <Route path= "/topic/:topicId"
+          component = {WidgetListContainer} >
+          </Route>
+
         </div>
       </Router>
     )

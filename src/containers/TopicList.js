@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import TopicService from "../services/TopicService"
 import TopicCard from '../components/TopicCard'
+import WidgetListContainer from './widgetListContainers'
 
 
 export default class TopicList extends Component {

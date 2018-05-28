@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 export default class TopicCard
   extends React.Component{
   	render(){
@@ -9,6 +10,9 @@ export default class TopicCard
   					<div className="card-body">
   						<h5 className="card-title"><i>
   						{this.props.topic.title}</i></h5>
+              <Link to={`/topic/${this.props.topic.id}`}>
+                  Widget for {this.props.topic.title}
+              </Link>
   						<br/>
   						<p><i> The topic for lesson</i></p>
   						<button className = "btn btn-danger"
