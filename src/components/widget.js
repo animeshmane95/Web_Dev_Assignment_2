@@ -42,27 +42,35 @@ const dispathToPropsMapper = dispatch => ({
   headingSizeChanged: (widgetId, newSize) =>
     actions.headingSizeChanged(dispatch, widgetId, newSize),
   headingNameChanged: (widgetId, newText) =>
-    actions.headingNameChanged(dispatch, widgetId, newText)
+    actions.headingNameChanged(dispatch, widgetId, newText),
+  paragraphNameChanged: (widgetId, newText) =>
+    actions.paragraphNameChanged(dispatch,widgetId,newText),
+  paragraphTextChanged: (widgetId, newText) =>
+    actions.paragraphTextChanged(dispatch,widgetId,newText)
 })
 const stateToPropsMapper = state => ({
   preview: state.preview
 })
 const HeadingContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Heading)
 
-const Paragraph = ({widget,preview,paragraphNameChanged,paragraphTextChanged}) => {
+const Paragraph = ({widget,preview,paragraphNameChanged,headingTextChanged}) => {
     let paragraphName
+    let paragraphText
     return(
     <div>
     <div hidden={preview}>
     <label>Paragraph Name</label>
-    <input className = "form-control" placeholder = "Widget-Name" 
-    onChange={() => paragraphNameChanged(widget.id, paragraphName.value)}
+
+     <input className = "form-control" placeholder = "Widget-Name" onChange={() => paragraphNameChanged(widget.id, paragraphName.value)}
                  value={widget.name}
-                 ref={node => paragraphName = node}/>
+                 ref={node =>  paragraphName = node}/>
     
     </div>
     <br/>
-    <textarea class = "form-control" placeholder = "Paragraph Text"></textarea>
+     <textarea className = "form-control" placeholder = "Paragraph-Text" onChange={() => headingTextChanged(widget.id, paragraphText.value)}
+                 value={widget.text}
+                 ref={node => paragraphText = node}/>
+    
     </div>
     )
 }
