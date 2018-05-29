@@ -110,6 +110,18 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
     }  
 
 
+    case constants.LINK_CHANGED:
+    return{
+       widgets: state.widgets.map(widget => {
+          if(widget.id === action.id) {
+            widget.link = action.link
+          }
+          return Object.assign({}, widget)
+        })
+
+    }  
+
+
     case constants.ADD_WIDGET:
       return {
         widgets: [
@@ -120,7 +132,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             name: 'Widget Name',
             widgetType: 'Heading',
             size: '1',
-            image: 'www.image.com'
+            image: 'www.image.com',
+            link: 'abc.com'
           }
         ]
       }

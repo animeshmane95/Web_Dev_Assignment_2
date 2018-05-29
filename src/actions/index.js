@@ -17,6 +17,13 @@ export const headingNameChanged = (dispatch, widgetId, newText) => (
 )
 
 
+export const linkChanged = (dispatch, widgetId, newText) => (
+  dispatch({
+    type: constants.LINK_CHANGED,
+    id: widgetId,
+    link: newText})
+)
+
 export const imageLinkChanged = (dispatch, widgetId, newText) => (
   dispatch({
     type: constants.IMAGE_TEXT_CHANGED,
@@ -58,6 +65,7 @@ export const findAllWidgets = dispatch => {
       type: constants.FIND_ALL_WIDGETS,
       widgets: widgets }))
 }
+
 
 export const deleteWidget  = (dispatch, widgetId) =>{
      return fetch('http://localhost:8080/api/delete/widget/' + widgetId , {

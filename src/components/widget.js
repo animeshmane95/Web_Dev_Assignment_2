@@ -46,7 +46,9 @@ const dispathToPropsMapper = dispatch => ({
   paragraphNameChanged: (widgetId, newText) =>
     actions.paragraphNameChanged(dispatch,widgetId,newText),
   imageLinkChanged: (widgetId, newText) =>  
-    actions.imageLinkChanged(dispatch,widgetId,newText)
+    actions.imageLinkChanged(dispatch,widgetId,newText),
+  linkChanged: (widgetId, newText) =>  
+    actions.linkChanged(dispatch,widgetId,newText)
 })
 const stateToPropsMapper = state => ({
   preview: state.preview
@@ -110,6 +112,31 @@ return(
 
 const ImageContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Image)
 
+const Link = ({widget,preview,headingNameChanged,linkChanged}) => {
+let linkName
+let linkContent
+return( 
+<div>
+<div hidden={preview}>
+<label>Link Name</label>
+<input className = "form-control" placeholder = "Widget-Name" onChange={() => headingNameChanged(widget.id, linkName.value)}
+                 value={widget.name}
+                 ref={node =>  linkName = node}/>
+<label>URL Link</label>
+<input className = "form-control" placeholder = "URL Link" onChange={() => linkChanged(widget.id, linkContent.value)}
+                 value={widget.link}
+                 ref={node =>  linkContent = node}/>
+</div>
+<br/>
+<div>
+<a href = {widget.link}>{widget.link}</a>
+</div>
+</div>
+)
+}
+
+const LinkContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Link)
+
 const List = () => (
   <h2>List</h2>
 )
@@ -141,6 +168,7 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
         {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
         {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget}/>}
         {widget.widgetType==='List' && <List/>}
+        {widget.widgetType==='Link' && <LinkContainer widget = {widget}/>}
         {widget.widgetType==='Image' && <ImageContainer widget={widget}/>}
       </div>
       </div>

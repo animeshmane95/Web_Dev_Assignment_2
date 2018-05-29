@@ -33,8 +33,10 @@ class WidgetList extends Component {
 
         <br/>
 
+        <div id = "AddButton">
         <button className = "btn btn-primary" onClick={this.props.addWidget}>Add widget
         </button>
+        </div>
       </div>
     )
   }
