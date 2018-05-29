@@ -1,4 +1,6 @@
 import * as constants from "../constants/index"
+const widgetURL = 'http://localhost:8080/api/topic/TID/widget' 
+let nextWidgetId = 1000000
 
 export const headingTextChanged = (dispatch, widgetId, newText) => (
   dispatch({
@@ -13,6 +15,15 @@ export const headingNameChanged = (dispatch, widgetId, newText) => (
     id: widgetId,
     name: newText})
 )
+
+export const findAllWidgetsOfTopic = (dispatch, topicId) =>{
+  fetch(widgetURL.replace("TID",topicId))
+    .then(response => (response.json()))
+    .then(widgets => dispatch({
+      type: constants.FIND_ALL_WIDGETS_OF_TOPIC,
+      widgets: widgets
+
+    }))}
 
 export const headingSizeChanged = (dispatch, widgetId, newSize) => (
   dispatch({
@@ -40,7 +51,7 @@ export const deleteWidget  = (dispatch, widgetId) =>{
 
 
 export const addWidget = dispatch => (
-  dispatch({type: constants.ADD_WIDGET})
+  dispatch({type: constants.ADD_WIDGET,widgetId: nextWidgetId++})
 )
 export const save = dispatch => (
   dispatch({type: constants.SAVE})

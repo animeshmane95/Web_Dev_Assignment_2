@@ -26,10 +26,10 @@ class WidgetListContainer extends Component {
 	render() {
 		return (
 			<div>
-			<input className = "storeTopicID" />
+			<input className = "storeTopicID" hidden/>
 
 			<Provider store={store}>
-    		<App />
+    		<App topicId = {this.props.match.params.topicId} />
   			</Provider>
   			</div>
 			)

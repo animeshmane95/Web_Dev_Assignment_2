@@ -1,6 +1,8 @@
 import * as constants from "../constants/index"
 import $ from 'jquery'
+
 const widgetURL = 'http://localhost:8080/api/topic/TID/widget' 
+
 export const widgetReducer = (state = {widgets: [], preview: false}, action) => {
   let newState
   switch (action.type) {
@@ -15,7 +17,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
       return {
         widgets: state.widgets.map(widget => {
           if(widget.id === action.id) {
-            widget.name = action.text
+            widget.name = action.name
           }
           return Object.assign({}, widget)
         })
@@ -73,6 +75,11 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
       newState.widgets = action.widgets
       return newState
 
+    case constants.FIND_ALL_WIDGETS_OF_TOPIC:
+      newState = Object.assign({}, state)
+      newState.widgets = action.widgets
+      return newState
+
     case constants.DELETE_WIDGET:
       return {
         widgets: state.widgets.filter(widget => (
@@ -86,7 +93,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
         widgets: [
           ...state.widgets,
           {
-            id: state.widgets.length + 1,
+            id: action.widgetId,
             text: 'Widget Content',
             name: 'Widget Name',
             widgetType: 'Paragraph',

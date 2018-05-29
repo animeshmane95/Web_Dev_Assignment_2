@@ -3,11 +3,13 @@ import {connect} from 'react-redux'
 import * as actions from "../actions"
 import WidgetContainer from '../components/widget'
 import WidgetListContainer from './widgetListContainers'
+import $ from 'jquery'
 
 class WidgetList extends Component {
   constructor(props) {
     super(props)
-    this.props.findAllWidgets()
+    var topic_id = this.props.topicId
+    this.props.findAllWidgetsOfTopic(topic_id)
   }
   render() {
     return(
@@ -19,7 +21,6 @@ class WidgetList extends Component {
         <button className = "btn btn-success" hidden={this.props.previewMode} onClick={this.props.save} >
           Save
         </button>
-
         <button className = "btn btn-warning" onClick={this.props.preview} >
           Preview
         </button>
@@ -45,7 +46,7 @@ const stateToPropertiesMapper = (state) => ({
 })
 const dispatcherToPropsMapper
   = dispatch => ({
-  findAllWidgets: () => actions.findAllWidgets(dispatch),
+  findAllWidgetsOfTopic: (topic_id) => actions.findAllWidgetsOfTopic(dispatch,topic_id),
   addWidget: () => actions.addWidget(dispatch),
   save: () => actions.save(dispatch),
   preview: () => actions.preview(dispatch)
