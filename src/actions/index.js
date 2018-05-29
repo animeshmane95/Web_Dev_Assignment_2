@@ -16,6 +16,23 @@ export const headingNameChanged = (dispatch, widgetId, newText) => (
     name: newText})
 )
 
+export const paragraphTextChanged = (dispatch, widgetId, newText) => (
+  dispatch({
+    type: constants.PARAGRAPH_NAME_CHANGED,
+    id: widgetId,
+    text: newText})
+)
+
+export const paragraphNameChanged = (dispatch, widgetId, newText) =>(
+
+  dispatch ({
+    type: constants.PARAGRAPH_NAME_CHANGED,
+    id: widgetId,
+    name: newText
+  })
+
+  )
+
 export const findAllWidgetsOfTopic = (dispatch, topicId) =>{
   fetch(widgetURL.replace("TID",topicId))
     .then(response => (response.json()))
@@ -51,7 +68,7 @@ export const deleteWidget  = (dispatch, widgetId) =>{
 
 
 export const addWidget = dispatch => (
-  dispatch({type: constants.ADD_WIDGET,widgetId: nextWidgetId++})
+  dispatch({type: constants.ADD_WIDGET,widgetId: nextWidgetId})
 )
 export const save = dispatch => (
   dispatch({type: constants.SAVE})

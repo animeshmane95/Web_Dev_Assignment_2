@@ -2,6 +2,7 @@ import React from  'react'
 import {connect} from 'react-redux'
 import {DELETE_WIDGET} from "../constants/index"
 import * as actions from '../actions'
+import './Style.css'
 
 const Heading = ({widget, preview, headingNameChanged, headingTextChanged, headingSizeChanged}) => {
   let selectElem
@@ -9,10 +10,7 @@ const Heading = ({widget, preview, headingNameChanged, headingTextChanged, headi
   let widgetName
   return(
     <div>
-    <br/>
-    <div className = "list-group-item">
       <div hidden={preview}>
-      <h5 align = "center"><i>This Widget is for Heading</i></h5>
         <p><i> The heading size is {widget.size} </i></p>
         <label> Widget Name </label>
         <input className = "form-control" placeholder = "Widget-Name" onChange={() => headingNameChanged(widget.id, widgetName.value)}
@@ -36,7 +34,6 @@ const Heading = ({widget, preview, headingNameChanged, headingTextChanged, headi
       {widget.size == 2 && <h2>{widget.text}</h2>}
       {widget.size == 3 && <h3>{widget.text}</h3>}
     </div>
-    </div>
   )
 }
 const dispathToPropsMapper = dispatch => ({
@@ -52,12 +49,25 @@ const stateToPropsMapper = state => ({
 })
 const HeadingContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Heading)
 
-const Paragraph = () => (
-  <div>
-    <h2>Paragraph</h2>
-    <textarea></textarea>
-  </div>
-)
+const Paragraph = ({widget,preview,paragraphNameChanged,paragraphTextChanged}) => {
+    let paragraphName
+    return(
+    <div>
+    <div hidden={preview}>
+    <label>Paragraph Name</label>
+    <input className = "form-control" placeholder = "Widget-Name" 
+    onChange={() => paragraphNameChanged(widget.id, paragraphName.value)}
+                 value={widget.name}
+                 ref={node => paragraphName = node}/>
+    
+    </div>
+    <br/>
+    <textarea class = "form-control" placeholder = "Paragraph Text"></textarea>
+    </div>
+    )
+}
+
+const ParagraphContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Paragraph)
 
 const Image = () => (
   <h2>Image</h2>
@@ -72,27 +82,29 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
   return(
     <div>
     <br/>
+    <div className = "list-group-item">
+    <br/>
+    <h2>{widget.widgetType} Widget</h2>
       <div hidden={preview}>
-      {widget.id} {widget.widgetType}
-
-      <br/>
-
-      <select value={widget.widgetType}
+       <br/>
+       <div id ="selects">
+      <select id = "selectList" value={widget.widgetType}
               onChange={e => selectWidgetType(widget.id,selectElement.value)} ref={node => selectElement = node}>
         <option>Heading</option>
         <option>Paragraph</option>
         <option>List</option>
         <option>Image</option>
       </select>
-      <br/>
-      <br/>
-      <button onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
+     
+      <button className = "btn btn-danger" id = "dangerButton" onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
+       </div>
       </div>
       <div>
         {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
-        {widget.widgetType==='Paragraph' && <Paragraph/>}
+        {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget}/>}
         {widget.widgetType==='List' && <List/>}
         {widget.widgetType==='Image' && <Image/>}
+      </div>
       </div>
     </div>
   )

@@ -23,6 +23,27 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
         })
       }
 
+      case constants.PARAGRAPH_NAME_CHANGED:
+      return {
+        widgets: state.widgets.map(widget => {
+          if(widget.id === action.id) {
+            widget.name = action.name
+          }
+          return Object.assign({}, widget)
+        })
+      }
+
+      case constants.PARAGRAPH_TEXT_CHANGED:
+      return {
+        widgets: state.widgets.map(widget => {
+          if(widget.id === action.id) {
+            widget.text = action.text
+          }
+          return Object.assign({}, widget)
+        })
+      }
+
+
     case constants.HEADING_TEXT_CHANGED:
       return {
         widgets: state.widgets.map(widget => {
@@ -96,8 +117,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             id: action.widgetId,
             text: 'Widget Content',
             name: 'Widget Name',
-            widgetType: 'Paragraph',
-            size: '2'
+            widgetType: 'Heading',
+            size: '1'
           }
         ]
       }
