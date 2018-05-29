@@ -67,7 +67,7 @@ const List = () => (
   <h2>List</h2>
 )
 
-const Widget = ({widget, preview, dispatch}) => {
+const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => {
   let selectElement
   return(
     <div>
@@ -78,12 +78,7 @@ const Widget = ({widget, preview, dispatch}) => {
       <br/>
 
       <select value={widget.widgetType}
-              onChange={e =>
-          dispatch({
-            type: 'SELECT_WIDGET_TYPE',
-            id: widget.id,
-            widgetType: selectElement.value
-          })} ref={node => selectElement = node}>
+              onChange={e => selectWidgetType(widget.id,selectElement.value)} ref={node => selectElement = node}>
         <option>Heading</option>
         <option>Paragraph</option>
         <option>List</option>
@@ -91,9 +86,7 @@ const Widget = ({widget, preview, dispatch}) => {
       </select>
       <br/>
       <br/>
-      <button onClick={e => (
-        dispatch({type: DELETE_WIDGET, id: widget.id})
-      )}>Delete Widget</button>
+      <button onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
       </div>
       <div>
         {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
@@ -104,7 +97,18 @@ const Widget = ({widget, preview, dispatch}) => {
     </div>
   )
 }
-const WidgetContainer = connect(state => ({
+
+const stateToPropertiesMapper = (state) => ({
+  widgets: state.widgets,
   preview: state.preview
-}))(Widget)
+})
+
+const dispatcherToPropsMapper
+  = dispatch => ({
+  deleteWidget: (widgetId) => actions.deleteWidget(dispatch, widgetId),
+  selectWidgetType:(widgetId, type) => actions.selectWidgetType(dispatch, widgetId, type)
+})
+
+const WidgetContainer = connect(stateToPropertiesMapper,dispatcherToPropsMapper)(Widget)
+
 export default WidgetContainer

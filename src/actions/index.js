@@ -28,6 +28,17 @@ export const findAllWidgets = dispatch => {
       type: constants.FIND_ALL_WIDGETS,
       widgets: widgets }))
 }
+
+export const deleteWidget  = (dispatch, widgetId) =>{
+     return fetch('http://localhost:8080/api/delete/widget/' + widgetId , {
+      method: 'Delete'
+    }).then(widgets => dispatch({
+      type : constants.DELETE_WIDGET,
+      widgets: widgets
+    }))
+   }
+
+
 export const addWidget = dispatch => (
   dispatch({type: constants.ADD_WIDGET})
 )
@@ -37,3 +48,11 @@ export const save = dispatch => (
 export const preview = dispatch => (
   dispatch({type: constants.PREVIEW})
 )
+
+export const selectWidgetType = (dispatch, widgetId, widgetType) => (
+  dispatch({
+            type: 'SELECT_WIDGET_TYPE',
+            id: widgetId,
+            widgetType: widgetType
+          })
+  )
