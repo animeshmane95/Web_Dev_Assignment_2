@@ -6,15 +6,32 @@ import {widgetReducer} from "../reducers/widgetReducer"
 import {WidgetContainer} from '../components/widget'
 import {findAllWidgets, addWidget, save} from "../actions/index"
 import App from '../containers/widgetList'
-
+import $ from 'jquery'
 
 let store = createStore(widgetReducer)
 
 class WidgetListContainer extends Component {
+
+
+
+
+	componentDidMount() {
+    var GlobalTopicId = this.props.match.params.topicId  ;
+    $(".storeTopicID").val(GlobalTopicId)
+
+
+  }
+
+
 	render() {
-		return (<Provider store={store}>
-    <App />
-  </Provider>
+		return (
+			<div>
+			<input className = "storeTopicID" />
+
+			<Provider store={store}>
+    		<App />
+  			</Provider>
+  			</div>
 			)
 	}
 }

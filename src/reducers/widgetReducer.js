@@ -1,5 +1,6 @@
 import * as constants from "../constants/index"
-
+import $ from 'jquery'
+const widgetURL = 'http://localhost:8080/api/topic/TID/widget' 
 export const widgetReducer = (state = {widgets: [], preview: false}, action) => {
   let newState
   switch (action.type) {
@@ -8,6 +9,16 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
       return {
         widgets: state.widgets,
         preview: !state.preview
+      }
+    
+    case constants.HEADING_NAME_CHANGED:
+      return {
+        widgets: state.widgets.map(widget => {
+          if(widget.id === action.id) {
+            widget.name = action.text
+          }
+          return Object.assign({}, widget)
+        })
       }
 
     case constants.HEADING_TEXT_CHANGED:
@@ -19,6 +30,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
           return Object.assign({}, widget)
         })
       }
+
 
     case constants.HEADING_SIZE_CHANGED:
       return {
@@ -44,33 +56,39 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
 
     case constants.SAVE:
 
+    var ID = $(".storeTopicID").val();
 
-      fetch('http://localhost:8080/api/widget/save', {
+
+      fetch(widgetURL.replace("TID",ID),{
         method: 'post',
+
         body: JSON.stringify(state.widgets),
         headers: {
           'content-type': 'application/json'}
       })
-
-
       return state
+
     case constants.FIND_ALL_WIDGETS:
       newState = Object.assign({}, state)
       newState.widgets = action.widgets
       return newState
+
     case constants.DELETE_WIDGET:
       return {
         widgets: state.widgets.filter(widget => (
           widget.id !== action.id
         ))
       }
+
+
     case constants.ADD_WIDGET:
       return {
         widgets: [
           ...state.widgets,
           {
             id: state.widgets.length + 1,
-            text: 'New Widget',
+            text: 'Widget Content',
+            name: 'Widget Name',
             widgetType: 'Paragraph',
             size: '2'
           }

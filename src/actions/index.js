@@ -6,6 +6,14 @@ export const headingTextChanged = (dispatch, widgetId, newText) => (
     id: widgetId,
     text: newText})
 )
+
+export const headingNameChanged = (dispatch, widgetId, newText) => (
+  dispatch({
+    type: constants.HEADING_NAME_CHANGED,
+    id: widgetId,
+    name: newText})
+)
+
 export const headingSizeChanged = (dispatch, widgetId, newSize) => (
   dispatch({
     type: constants.HEADING_SIZE_CHANGED,
