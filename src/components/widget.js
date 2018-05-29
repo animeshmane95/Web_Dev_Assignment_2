@@ -45,8 +45,8 @@ const dispathToPropsMapper = dispatch => ({
     actions.headingNameChanged(dispatch, widgetId, newText),
   paragraphNameChanged: (widgetId, newText) =>
     actions.paragraphNameChanged(dispatch,widgetId,newText),
-  paragraphTextChanged: (widgetId, newText) =>
-    actions.paragraphTextChanged(dispatch,widgetId,newText)
+  imageLinkChanged: (widgetId, newText) =>  
+    actions.imageLinkChanged(dispatch,widgetId,newText)
 })
 const stateToPropsMapper = state => ({
   preview: state.preview
@@ -65,21 +65,50 @@ const Paragraph = ({widget,preview,paragraphNameChanged,headingTextChanged}) => 
                  value={widget.name}
                  ref={node =>  paragraphName = node}/>
     
-    </div>
+    
     <br/>
      <textarea className = "form-control" placeholder = "Paragraph-Text" onChange={() => headingTextChanged(widget.id, paragraphText.value)}
                  value={widget.text}
                  ref={node => paragraphText = node}/>
-    
+    <h6>PREVIEW</h6>
+    </div>
+    <div>
+    <p><i>
+    {widget.text}
+    </i>
+    </p>
+    </div>
     </div>
     )
 }
 
 const ParagraphContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Paragraph)
 
-const Image = () => (
-  <h2>Image</h2>
+const Image = ({widget,preview,headingNameChanged,imageLinkChanged}) => {
+let ImageName
+let ImageLink
+return( 
+<div>
+<div hidden={preview}>
+<label>Image Name</label>
+<input className = "form-control" placeholder = "Widget-Name" onChange={() => headingNameChanged(widget.id, ImageName.value)}
+                 value={widget.name}
+                 ref={node =>  ImageName = node}/>
+<label>Image Link</label>
+<input className = "form-control" placeholder = "Image Link" onChange={() => imageLinkChanged(widget.id, ImageLink.value)}
+                 value={widget.image}
+                 ref={node =>  ImageLink = node}/>
+</div>
+<br/>
+<div>
+<img src = {widget.image} alt = "Mountain View" width = "500" height = "300">
+</img>
+</div>
+</div>
 )
+}
+
+const ImageContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Image)
 
 const List = () => (
   <h2>List</h2>
@@ -102,6 +131,7 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
         <option>Paragraph</option>
         <option>List</option>
         <option>Image</option>
+        <option>Link</option>
       </select>
      
       <button className = "btn btn-danger" id = "dangerButton" onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
@@ -111,7 +141,7 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
         {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
         {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget}/>}
         {widget.widgetType==='List' && <List/>}
-        {widget.widgetType==='Image' && <Image/>}
+        {widget.widgetType==='Image' && <ImageContainer widget={widget}/>}
       </div>
       </div>
     </div>

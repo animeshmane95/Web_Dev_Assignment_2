@@ -16,12 +16,14 @@ export const headingNameChanged = (dispatch, widgetId, newText) => (
     name: newText})
 )
 
-export const paragraphTextChanged = (dispatch, widgetId, newText) => (
+
+export const imageLinkChanged = (dispatch, widgetId, newText) => (
   dispatch({
-    type: constants.PARAGRAPH_NAME_CHANGED,
+    type: constants.IMAGE_TEXT_CHANGED,
     id: widgetId,
-    text: newText})
+    image: newText})
 )
+
 
 export const paragraphNameChanged = (dispatch, widgetId, newText) =>(
 
