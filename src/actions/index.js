@@ -9,6 +9,23 @@ export const headingTextChanged = (dispatch, widgetId, newText) => (
     text: newText})
 )
 
+export const listTypeChanged = (dispatch, widgetId, newText) =>(
+  dispatch({
+    type: constants.LIST_TYPE_CHANGED,
+    id: widgetId,
+    listType: newText
+  })
+
+  )
+
+
+export const listTextChanged = (dispatch, widgetId, newText) => (
+  dispatch({
+    type: constants.LIST_CONTENT_CHANGED,
+    id: widgetId,
+    listItems: newText})
+)
+
 export const headingNameChanged = (dispatch, widgetId, newText) => (
   dispatch({
     type: constants.HEADING_NAME_CHANGED,

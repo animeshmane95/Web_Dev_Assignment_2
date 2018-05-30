@@ -48,7 +48,12 @@ const dispathToPropsMapper = dispatch => ({
   imageLinkChanged: (widgetId, newText) =>  
     actions.imageLinkChanged(dispatch,widgetId,newText),
   linkChanged: (widgetId, newText) =>  
-    actions.linkChanged(dispatch,widgetId,newText)
+    actions.linkChanged(dispatch,widgetId,newText),
+  listTextChanged: (widgetId, newText) =>
+    actions.listTextChanged(dispatch,widgetId,newText),
+  listTypeChanged: (widgetId, newText) =>
+    actions.listTypeChanged(dispatch,widgetId,newText)
+
 })
 const stateToPropsMapper = state => ({
   preview: state.preview
@@ -137,9 +142,53 @@ return(
 
 const LinkContainer = connect(stateToPropsMapper, dispathToPropsMapper)(Link)
 
-const List = () => (
-  <h2>List</h2>
-)
+const List = ({widget, preview, headingNameChanged, listTextChanged, listTypeChanged}) => {
+  let listName
+  let listContent
+  let listType
+  return(
+    <div>
+      <div hidden={preview}>
+        <label> Widget Name </label>
+        <input className = "form-control" placeholder = "Widget-Name" 
+        onChange={() => headingNameChanged(widget.id, listName.value)}
+                 value={widget.name}
+                 ref={node => listName = node}/>
+        <label> List Content</label>
+        <textarea className = "form-control" placeholder = "List Items" 
+        onChange={() => listTextChanged(widget.id, listContent.value)}
+                 value={widget.listItems}
+                 ref={node => listContent = node}/>
+         <label> List Type</label> 
+          <select className = "form-control"  onChange={() => listTypeChanged(widget.id, listType.value)}
+                  value={widget.listType}
+                  ref={node => listType = node}>
+            <option value="ordered">Ordered List</option>
+            <option value= "unordered">Unordered List</option>
+          </select>
+          <p>The preview of the List is</p>
+      </div>
+      <div>
+      <h6><i>The list type is : {widget.listType}</i></h6>
+       <div style={{display: widget.listType === 'unordered'?'block':'none'}}>
+        <ul>
+       
+        {widget.listItems &&  widget.listItems.split("\n").map(l=><li>{l}</li>)}
+        </ul>
+      </div>
+      <div style={{display: widget.listType === 'ordered'?'block':'none'}}>
+        <ol>
+       
+        {widget.listItems &&  widget.listItems.split("\n").map(l=><li>{l}</li>)}
+        </ol>
+      </div>
+
+      </div>
+    </div>
+  )
+}
+
+const ListContainer = connect(stateToPropsMapper, dispathToPropsMapper)(List)
 
 const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => {
   let selectElement
@@ -167,7 +216,7 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
       <div>
         {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
         {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget}/>}
-        {widget.widgetType==='List' && <List/>}
+        {widget.widgetType==='List' && <ListContainer widget = {widget}/>}
         {widget.widgetType==='Link' && <LinkContainer widget = {widget}/>}
         {widget.widgetType==='Image' && <ImageContainer widget={widget}/>}
       </div>

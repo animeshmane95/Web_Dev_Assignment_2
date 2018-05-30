@@ -44,6 +44,17 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
       }
 
 
+     case constants.LIST_TYPE_CHANGED:
+      return {
+        widgets: state.widgets.map(widget => {
+          if(widget.id === action.id) {
+            widget.listType = action.listType
+          }
+          return Object.assign({}, widget)
+        })
+      } 
+
+
     case constants.HEADING_SIZE_CHANGED:
       return {
         widgets: state.widgets.map(widget => {
@@ -121,6 +132,15 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
 
     }  
 
+    case constants.LIST_CONTENT_CHANGED:
+    return{
+      widgets: state.widgets.map(widget => {
+          if(widget.id === action.id) {
+            widget.listItems = action.listItems
+          }
+          return Object.assign({}, widget)
+        })
+    }
 
     case constants.ADD_WIDGET:
       return {
@@ -133,7 +153,9 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             widgetType: 'Heading',
             size: '1',
             image: 'www.image.com',
-            link: 'abc.com'
+            link: 'abc.com',
+            listItems: 'aaaa',
+            listType: 'unordered'
           }
         ]
       }
