@@ -75,6 +75,20 @@ export const headingSizeChanged = (dispatch, widgetId, newSize) => (
     size: newSize})
 )
 
+export const incrementPosition = (dispatch, widget) => (
+  dispatch({
+    type: constants.INCREMENT_POSITION,
+    widget: widget})
+)
+
+
+export const decrementPosition = (dispatch, widget) => (
+  dispatch({
+    type: constants.DECREMENT_POSITION,
+    widget: widget
+  })
+)
+
 export const findAllWidgets = dispatch => {
   fetch('http://localhost:8080/api/widget')
     .then(response => (response.json()))
@@ -82,6 +96,7 @@ export const findAllWidgets = dispatch => {
       type: constants.FIND_ALL_WIDGETS,
       widgets: widgets }))
 }
+
 
 
 export const deleteWidget  = (dispatch, widgetId) =>{
@@ -95,7 +110,7 @@ export const deleteWidget  = (dispatch, widgetId) =>{
 
 
 export const addWidget = dispatch => (
-  dispatch({type: constants.ADD_WIDGET,widgetId: nextWidgetId})
+  dispatch({type: constants.ADD_WIDGET,widgetId: nextWidgetId++})
 )
 export const save = dispatch => (
   dispatch({type: constants.SAVE})

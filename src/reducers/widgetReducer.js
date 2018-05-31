@@ -54,6 +54,33 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
         })
       } 
 
+    case constants.INCREMENT_POSITION:
+    let widgets = state.widgets;
+    var state = JSON.parse(JSON.stringify(state))
+    let indexOfWidget = widgets.indexOf(action.widget);
+    let sourceIndex = widgets[indexOfWidget].widgetorder;
+    let destinationIndex = widgets[indexOfWidget-1].widgetorder;
+    widgets[indexOfWidget-1].widgetorder = sourceIndex;
+    widgets[indexOfWidget].widgetorder = destinationIndex;
+
+    widgets.move(indexOfWidget, indexOfWidget - 1);
+    widgets =  widgets.splice(0);
+    state.widgets = widgets;
+    return state
+
+    case constants.DECREMENT_POSITION:
+    widgets = state.widgets;
+    state = JSON.parse(JSON.stringify(state))
+    indexOfWidget = widgets.indexOf(action.widget);
+    sourceIndex = widgets[indexOfWidget].widgetorder;
+    destinationIndex = widgets[indexOfWidget+1].widgetorder;
+    widgets[indexOfWidget+1].widgetorder = sourceIndex;
+    widgets[indexOfWidget].widgetorder = destinationIndex;
+
+    widgets.move(indexOfWidget-1, indexOfWidget);
+    widgets =  widgets.splice(0);
+    state.widgets = widgets;
+    return state
 
     case constants.HEADING_SIZE_CHANGED:
       return {
@@ -101,12 +128,22 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
       newState.widgets = action.widgets
       return newState
 
-    case constants.DELETE_WIDGET:
+
+     case constants.DELETE_WIDGET:
       return {
         widgets: state.widgets.filter(widget => (
           widget.id !== action.id
         ))
       }
+
+    /*case constants.DELETE_WIDGET:
+      newState = { widgets: state.widgets.map(widget => {
+          if(widget.id !== action.id) {
+            return Object.assign({}, widget);
+          }
+      })}
+      newState = JSON.parse(JSON.stringify(newState))
+      return newState*/
 
 
     case constants.IMAGE_TEXT_CHANGED:
@@ -143,6 +180,19 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
     }
 
     case constants.ADD_WIDGET:
+      var maxOrder = 0
+      state.widgets.map(widget => {
+
+        if(maxOrder < widget.widgetorder){
+          maxOrder = widget.widgetorder;
+        }
+
+      })
+
+
+
+
+
       return {
         widgets: [
           ...state.widgets,
@@ -152,10 +202,11 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             name: 'Widget Name',
             widgetType: 'Heading',
             size: '1',
-            image: 'www.image.com',
+            image: 'http://www.kxl.com/wp-content/uploads/2016/08/stack_of_books.jpg',
             link: 'abc.com',
             listItems: 'aaaa',
-            listType: 'unordered'
+            listType: 'unordered',
+            widgetorder: ++maxOrder
           }
         ]
       }

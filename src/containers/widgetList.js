@@ -5,6 +5,11 @@ import WidgetContainer from '../components/widget'
 import WidgetListContainer from './widgetListContainers'
 import $ from 'jquery'
 
+
+Array.prototype.move
+    = function (from, to) {
+    this.splice(to, 0, this.splice(from, 1)[0]);
+};
 class WidgetList extends Component {
   constructor(props) {
     super(props)
@@ -18,12 +23,14 @@ class WidgetList extends Component {
        <div id = "widgetHeading">
         <h3 align = "center"><i>Widget List {this.props.widgets.length}</i></h3>
         </div>
-        <button className = "btn btn-success" hidden={this.props.previewMode} onClick={this.props.save} >
+        <div id = "buttons">
+        <button id = "saveButton" className = "btn btn-success" hidden={this.props.previewMode} onClick={this.props.save} >
           Save
         </button>
-        <button className = "btn btn-warning" onClick={this.props.preview} >
+        <button id = "previewButton" className = "btn btn-warning" onClick={this.props.preview} >
           Preview
         </button>
+        </div>
         <br/>
           {this.props.widgets.map(widget => (
             <WidgetContainer widget={widget}

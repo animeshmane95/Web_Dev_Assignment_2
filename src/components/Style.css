@@ -1,10 +1,37 @@
 .card-deck .card{
 	margin: 10px 10px 10px 10px;
+	background-color: #FFFFEC;
+	width: 360px;
+	height: 300px;
+
 }
-#selects{
-	margin-left: 1000px
-}
+
 #AddButton{
 	margin-bottom: 30px
+}
+
+#selectList{
+width: 200px;
+}
+
+.list-group-item{
+	background-color: #FFFFEC;
+}
+
+#buttons{
+	margin-left: 1100px;
+}
+
+#saveButton{
+	
+	margin-right: 10px;
+}
+
+#AddButton{
+	margin-left: 1150px;
+}
+
+#dangerButton{
+	margin-left: 1100px;
 }
 

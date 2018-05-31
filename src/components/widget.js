@@ -1,15 +1,18 @@
 import React from  'react'
 import {connect} from 'react-redux'
 import {DELETE_WIDGET} from "../constants/index"
+import {INCREMENT_POSITION} from "../constants/index"
+import {DECREMENT_POSITION} from "../constants/index"
 import * as actions from '../actions'
 import './Style.css'
+
 
 const Heading = ({widget, preview, headingNameChanged, headingTextChanged, headingSizeChanged}) => {
   let selectElem
   let inputElem
   let widgetName
   return(
-    <div>
+    <div id = "headingWidget">
       <div hidden={preview}>
         <p><i> The heading size is {widget.size} </i></p>
         <label> Widget Name </label>
@@ -190,7 +193,7 @@ const List = ({widget, preview, headingNameChanged, listTextChanged, listTypeCha
 
 const ListContainer = connect(stateToPropsMapper, dispathToPropsMapper)(List)
 
-const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => {
+const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType, incrementPosition, decrementPosition}) => {
   let selectElement
   return(
     <div>
@@ -201,7 +204,7 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
       <div hidden={preview}>
        <br/>
        <div id ="selects">
-      <select id = "selectList" value={widget.widgetType}
+      <select id = "selectList" value={widget.widgetType} className = "form-control"
               onChange={e => selectWidgetType(widget.id,selectElement.value)} ref={node => selectElement = node}>
         <option>Heading</option>
         <option>Paragraph</option>
@@ -209,9 +212,9 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
         <option>Image</option>
         <option>Link</option>
       </select>
-     
-      <button className = "btn btn-danger" id = "dangerButton" onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
-       </div>
+      <button className = "fa fa-arrow-up btn-warning"  onClick={() => incrementPosition(widget)}></button>
+      <button className = "fa fa-arrow-down btn-warning"  onClick={() => decrementPosition(widget)}></button>
+      </div>
       </div>
       <div>
         {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
@@ -220,6 +223,7 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType}) => 
         {widget.widgetType==='Link' && <LinkContainer widget = {widget}/>}
         {widget.widgetType==='Image' && <ImageContainer widget={widget}/>}
       </div>
+      <button className = "btn btn-danger" id = "dangerButton" onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
       </div>
     </div>
   )
@@ -233,7 +237,9 @@ const stateToPropertiesMapper = (state) => ({
 const dispatcherToPropsMapper
   = dispatch => ({
   deleteWidget: (widgetId) => actions.deleteWidget(dispatch, widgetId),
-  selectWidgetType:(widgetId, type) => actions.selectWidgetType(dispatch, widgetId, type)
+  selectWidgetType:(widgetId, type) => actions.selectWidgetType(dispatch, widgetId, type),
+  incrementPosition:(widget) => actions.incrementPosition(dispatch,widget),
+  decrementPosition:(widget) => actions.decrementPosition(dispatch,widget)
 })
 
 const WidgetContainer = connect(stateToPropertiesMapper,dispatcherToPropsMapper)(Widget)

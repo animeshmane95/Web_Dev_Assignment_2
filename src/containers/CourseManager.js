@@ -4,6 +4,7 @@ import CourseEditor from "./CourseEditor"
 import ModuleEditor from "./ModuleEditor"
 import LessonList from "./LessonList"
 import TopicList from "./TopicList"
+import './Style1.css'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import WidgetListContainer from './widgetListContainers'
 
@@ -12,11 +13,12 @@ export default class CourseManager
   render() {
     return (
       <Router>
-        <div className="container-fluid">
-        <br/>
-          <div style={{backgroundColor: 'steelblue'}}>
-          <h1 align = "center" Text style={{color: 'white'}}><i>Course Manager</i></h1>
+      <div id = "coursePage">
+      <div className = "courseTitle">
+          <h1><i>Course Manager</i></h1>
           </div>
+        <div className="container-fluid">
+          
 
           <Route path="/courses"
                  component={CourseList}>
@@ -38,6 +40,7 @@ export default class CourseManager
           component = {WidgetListContainer} >
           </Route>
 
+        </div>
         </div>
       </Router>
     )
