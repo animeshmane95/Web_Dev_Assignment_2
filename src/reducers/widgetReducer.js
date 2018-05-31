@@ -1,7 +1,7 @@
 import * as constants from "../constants/index"
 import $ from 'jquery'
 
-const widgetURL = 'http://localhost:8080/api/topic/TID/widget' 
+const widgetURL = 'https://webdev-summer1-2018-animesh.herokuapp.com/api/topic/TID/widget' 
 
 export const widgetReducer = (state = {widgets: [], preview: false}, action) => {
   let newState

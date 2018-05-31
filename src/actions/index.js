@@ -1,5 +1,5 @@
 import * as constants from "../constants/index"
-const widgetURL = 'http://localhost:8080/api/topic/TID/widget' 
+const widgetURL = 'https://webdev-summer1-2018-animesh.herokuapp.com/api/topic/TID/widget' 
 let nextWidgetId = 1000000
 
 export const headingTextChanged = (dispatch, widgetId, newText) => (
@@ -90,7 +90,7 @@ export const decrementPosition = (dispatch, widget) => (
 )
 
 export const findAllWidgets = dispatch => {
-  fetch('http://localhost:8080/api/widget')
+  fetch('https://webdev-summer1-2018-animesh.herokuapp.com/api/widget')
     .then(response => (response.json()))
     .then(widgets => dispatch({
       type: constants.FIND_ALL_WIDGETS,
@@ -100,7 +100,7 @@ export const findAllWidgets = dispatch => {
 
 
 export const deleteWidget  = (dispatch, widgetId) =>{
-     return fetch('http://localhost:8080/api/delete/widget/' + widgetId , {
+     return fetch('https://webdev-summer1-2018-animesh.herokuapp.com/api/delete/widget/' + widgetId , {
       method: 'Delete'
     }).then(widgets => dispatch({
       type : constants.DELETE_WIDGET,
