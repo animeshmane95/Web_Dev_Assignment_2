@@ -35,7 +35,7 @@ class WidgetList extends Component {
           {this.props.widgets.map(widget => (
             <WidgetContainer widget={widget}
                              preview={this.props.previewMode}
-                             key={widget.id}/>
+                             key={widget.id} widgets = {this.props.widgets}/>
           ))}
 
         <br/>

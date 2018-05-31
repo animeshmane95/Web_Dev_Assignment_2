@@ -193,7 +193,7 @@ const List = ({widget, preview, headingNameChanged, listTextChanged, listTypeCha
 
 const ListContainer = connect(stateToPropsMapper, dispathToPropsMapper)(List)
 
-const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType, incrementPosition, decrementPosition}) => {
+const Widget = ({widgets, widget, preview, dispatch, deleteWidget, selectWidgetType, incrementPosition, decrementPosition}) => {
   let selectElement
   return(
     <div>
@@ -212,8 +212,8 @@ const Widget = ({widget, preview, dispatch, deleteWidget, selectWidgetType, incr
         <option>Image</option>
         <option>Link</option>
       </select>
-      <button className = "fa fa-arrow-up btn-warning"  onClick={() => incrementPosition(widget)}></button>
-      <button className = "fa fa-arrow-down btn-warning"  onClick={() => decrementPosition(widget)}></button>
+      {widgets[0] !== widget && <button className = "fa fa-arrow-up btn-warning"  onClick={() => incrementPosition(widget)}></button>}
+      {widgets[widgets.length - 1] !== widget && <button className = "fa fa-arrow-down btn-warning"  onClick={() => decrementPosition(widget)}></button>}
       </div>
       </div>
       <div>

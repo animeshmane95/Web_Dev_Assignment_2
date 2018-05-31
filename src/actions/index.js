@@ -104,7 +104,7 @@ export const deleteWidget  = (dispatch, widgetId) =>{
       method: 'Delete'
     }).then(widgets => dispatch({
       type : constants.DELETE_WIDGET,
-      widgets: widgets
+      id: widgetId
     }))
    }
 
