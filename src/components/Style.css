@@ -10,9 +10,6 @@
 	margin-bottom: 30px
 }
 
-#selectList{
-width: 200px;
-}
 
 .list-group-item{
 	background-color: #FFFFEC;
@@ -31,7 +28,7 @@ width: 200px;
 	margin-left: 1150px;
 }
 
-#dangerButton{
-	margin-left: 1100px;
+#headings{
+	margin-left: 1000px;
 }
 

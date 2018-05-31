@@ -14,7 +14,6 @@ const Heading = ({widget, preview, headingNameChanged, headingTextChanged, headi
   return(
     <div id = "headingWidget">
       <div hidden={preview}>
-        <p><i> The heading size is {widget.size} </i></p>
         <label> Widget Name </label>
         <input className = "form-control" placeholder = "Widget-Name" onChange={() => headingNameChanged(widget.id, widgetName.value)}
                  value={widget.name}
@@ -203,7 +202,14 @@ const Widget = ({widgets, widget, preview, dispatch, deleteWidget, selectWidgetT
     <h2>{widget.widgetType} Widget</h2>
       <div hidden={preview}>
        <br/>
+       <div id = "headings">
+      {widgets[0] !== widget && <button className = "fa fa-arrow-up btn btn-warning"  onClick={() => incrementPosition(widget)}></button>}
+      {widgets[widgets.length - 1] !== widget && <button className = "fa fa-arrow-down btn btn-warning"  onClick={() => decrementPosition(widget)}></button>}
+      <button className = "btn btn-danger" id = "dangerButton" onClick={() => deleteWidget(widget.id)}>Delete Widget</button> 
+       </div>
        <div id ="selects">
+       <br/>
+      <label> Widget Type </label>
       <select id = "selectList" value={widget.widgetType} className = "form-control"
               onChange={e => selectWidgetType(widget.id,selectElement.value)} ref={node => selectElement = node}>
         <option>Heading</option>
@@ -212,8 +218,7 @@ const Widget = ({widgets, widget, preview, dispatch, deleteWidget, selectWidgetT
         <option>Image</option>
         <option>Link</option>
       </select>
-      {widgets[0] !== widget && <button className = "fa fa-arrow-up btn-warning"  onClick={() => incrementPosition(widget)}></button>}
-      {widgets[widgets.length - 1] !== widget && <button className = "fa fa-arrow-down btn-warning"  onClick={() => decrementPosition(widget)}></button>}
+     
       </div>
       </div>
       <div>
@@ -223,7 +228,7 @@ const Widget = ({widgets, widget, preview, dispatch, deleteWidget, selectWidgetT
         {widget.widgetType==='Link' && <LinkContainer widget = {widget}/>}
         {widget.widgetType==='Image' && <ImageContainer widget={widget}/>}
       </div>
-      <button className = "btn btn-danger" id = "dangerButton" onClick={() => deleteWidget(widget.id)}>Delete Widget</button>
+      
       </div>
     </div>
   )
